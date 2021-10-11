@@ -1,17 +1,10 @@
-public class Mapa {
+public class Mapa extends Drawable  implements Focusable {
   private int lineasV[][];
   private int lineasH[][];
   private int zumbadores[][];
-  private int ancho;
-  private int alto;
-  private int posX;
-  private int posY;
 
   public Mapa(int posX, int posY, int ancho, int alto) {
-    this.posX = posX;
-    this.posY = posY;
-    this.alto = alto;
-    this.ancho = ancho;
+    super(posX, posY, ancho, alto);
     println("Ancho: " + (ancho-posX));
     println("Alto: " + (alto-posY));
     println("Espacios horizontales: " + (ancho-posX)/40);
@@ -19,14 +12,26 @@ public class Mapa {
     lineasV = new int[((ancho-posX)/40)+1][((alto-posY)/40)+1];
     lineasH = new int[((ancho-posX)/40)+1][((alto-posY)/40)+1];
     zumbadores = new int[((ancho-posX)/40)-1][((alto-posY)/40)-1];
+    // ******** Inicio preparar mapa ********
+    for (int i=0; i<lineasV[0].length-1; i++) {
+      lineasV[0][i] = 1;
+      lineasV[lineasV.length-1][i] = 1;
+    }
+    for (int i=0; i<lineasH.length-1; i++) {
+      lineasH[i][0] = 1;
+      lineasH[i][lineasH[0].length-1] = 1;
+    }
+    zumbadores[int(random(zumbadores.length))][int(random(zumbadores[0].length))] = 1;
+    // ******** Fin preparar mapa ********
   }
 
-  public void sensar() {
+  @Override
+    public void sensar() {
     // Sensado de regiones y actuadores
     if (mouseX >= posX && mouseX <=ancho && mouseY >= posY && mouseY <= alto) {
       // Region 1
-      if (mouseX%40 >= 0 && mouseX%40 <= 10) {
-        if (mouseY%40 >= 10 && mouseY%40 <= 40) {
+      if ((mouseX-posX)%40 >= 0 && (mouseX-posX)%40 <= 10) {
+        if ((mouseY-posY)%40 >= 10 && (mouseY-posY)%40 <= 40) {
           println("Mouse (X<V>" + int((mouseX-posX)/40)+", Y<V> " + int((mouseY-posY)/40)+")");
           if (lineasV[(mouseX-posX)/40][(mouseY-posY)/40] == 0) {
             lineasV[(mouseX-posX)/40][(mouseY-posY)/40] = 1;
@@ -36,8 +41,8 @@ public class Mapa {
         }
       }  
       // Region 2
-      if (mouseX%40 >= 10 && mouseX%40 <= 40) {
-        if (mouseY%40 >= 0 && mouseY%40 <= 10) {
+      if ((mouseX-posX)%40 >= 10 && (mouseX-posX)%40 <= 40) {
+        if ((mouseY-posY)%40 >= 0 && (mouseY-posY)%40 <= 10) {
           println("Mouse (X<H>" + int((mouseX-posX)/40)+", Y<H> " + int((mouseY-posY)/40)+")");
           if (lineasH[(mouseX-posX)/40][(mouseY-posY)/40] == 0) {
             lineasH[(mouseX-posX)/40][(mouseY-posY)/40] = 1;
@@ -47,8 +52,8 @@ public class Mapa {
         }
       }
       // Region 3
-      if (mouseX%40 >= 10+2 && mouseX%40 <= 40-2) {
-        if (mouseY%40 >= 10+2 && mouseY%40 <= 40-2) {
+      if ((mouseX-posX)%40 >= 10+2 && (mouseX-posX)%40 <= 40-2) {
+        if ((mouseY-posY)%40 >= 10+2 && (mouseY-posY)%40 <= 40-2) {
           if (((mouseX-posX)/40) >= 0 && ((mouseX-posX)/40) < (((ancho-posX)/40)-1)) {
             if (((mouseY-posY)/40) >= 0 && ((mouseY-posY)/40) < (((alto-posY)/40)-1)) {
               println("Mouse (X<Z>" + int((mouseX-posX)/40)+", Y<Z> " + int((mouseY-posY)/40)+")");
@@ -68,8 +73,9 @@ public class Mapa {
     }
   }
 
-  public void dibujar_cuadricula() {
-    //Cuadricula
+  @Override
+    public void draw() {
+    // ******** Inicio dibujar cuadricula ********
     fill(100, 100, 100);
     strokeWeight(1);
     rectMode(CORNER);
@@ -78,10 +84,8 @@ public class Mapa {
         rect(i, j, 10, 10);
       }
     }
-  }
-
-  public void dibujar_lineas() {
-    // Pintado de las lineas
+    // ******** Fin dibujar cuadricula ********
+    // ******** Inicio dibujar lineas ********
     fill(0);
     strokeWeight(5);
     // Region 1
@@ -100,10 +104,8 @@ public class Mapa {
         }
       }
     }
-  }
-
-  public void dibujar_zumbadores() {
-    // Pintado de los zumbadores
+    // ******** Fin dibujar lineas ********
+    // ******** Inicio dibujar zumbadores ********
     strokeWeight(0);
     rectMode(CORNERS);
     textSize(18);
@@ -118,19 +120,11 @@ public class Mapa {
         }
       }
     }
-  }
-  
-  public void dibujar_borde(){
+    // ******** Fin dibujar zumbadores ********
+    // ******** Inicio dibujar borde ********
     noFill();
     strokeWeight(1);
     rect(posX, posY, ancho, alto);
-  }
-  
-
-  public void draw() {
-    dibujar_cuadricula();
-    dibujar_lineas();
-    dibujar_zumbadores();
-    dibujar_borde();
+    // ******** Fin dibujar borde ********
   }
 }

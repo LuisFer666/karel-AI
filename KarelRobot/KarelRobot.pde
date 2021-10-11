@@ -1,20 +1,23 @@
 
-Karel[] karel;
-Mapa[] mapa;
-Codigo[] codigo;
+public Karel karel[];
+public Botones botones;
+public Icono errores[][];
 
-Botones botones;
-
-void setup() {
-  size(1600, 850);  
-
-  mapa = new Mapa[8];
+public void setup() {
+  size(1600, 850);
+  // Creación de los Karel
+  karel = new Karel[8];
+  // Coordenadas de los mapas
   int x=0;
   int y=70;
   int ancho = 400;
   int alto = 400;
-  for (int i=0; i<mapa.length; i++) {
-    mapa[i] = new Mapa(x, y, ancho, alto);
+  for (int i=0; i<karel.length; i++) {
+    karel[i] = new Karel(i);
+    // Creación del codigo de cada Karel
+    karel[i].setCodigo(new Codigo(karel[i]));
+    // Creación del mapa de cada Karel
+    karel[i].setMapa(new Mapa(x, y, ancho, alto));
     ancho+=400;
     x+=400;
     if (x>=1600) {
@@ -24,55 +27,68 @@ void setup() {
       y +=400;
     }
   }
-
-  karel = new Karel[8];
-  for (int i=0; i<karel.length; i++) {
-    karel[i] = new Karel(mapa[i]);
+  // Iconos de error
+  errores = new Icono[8][3];
+  for (int i=0; i<errores.length; i++) {
+    errores[i][0] = new Icono("err_colision.png", karel[i].getMapa().getPosX()+80, karel[i].getMapa().getAlto()+7, 24, 24);
+    errores[i][1] = new Icono("err_beeper.png", karel[i].getMapa().getPosX()+160, karel[i].getMapa().getAlto()+7, 24, 24);
+    errores[i][2] = new Icono("err_outScreen.png", karel[i].getMapa().getPosX()+240, karel[i].getMapa().getAlto()+7, 24, 24);
   }
-
-  codigo = new Codigo[8];
-  for (int i=0; i<codigo.length; i++) {
-    codigo[i] = new Codigo(karel[i]);
-  }
-
+  // Creación de los botones
   botones = new Botones();
-
   frameRate(60);
 }
 
-public void dibujar_ADN() {
-  for (int i=0; i<codigo.length; i++) {
-    String ADN = codigo[i].getADN();
-    text("ADN: "+ADN, mapa[i].posX, mapa[i].posY-5);
-  }
-}
-
-void draw() {
+public void draw() {
+  // Set color de fondo blanco
   background(255);
-
   botones.draw();
-  
-  dibujar_ADN();
-
-  for (Mapa a : mapa) {
-    a.draw();
-  }
-
+  // Dibujar mapas y agentes
   for (Karel k : karel) {
+    k.getMapa().draw();
     k.draw();
-  }
-
-  for (Codigo c : codigo) {
-    if (c.getRunning()) {
-      c.execute();
+    if (k.getZumbadores()>=1) {
+      k.getCodigo().setRunning(false);
+    } else {
+      if (k.getCodigo().getRunning()) {
+        k.getCodigo().execute();
+      }
     }
   }
+  // ********** Inicio dibujar textos **********
+  for (int i=0; i<karel.length; i++) {
+    String ADN = karel[i].getCodigo().getADN();
+    int ciclo = karel[i].getCodigo().getCiclo();
+    int err_pared = karel[i].getErrPared();
+    int err_zumbador = karel[i].getErrZumbador();
+    int err_fuera = karel[i].getErrFuera();
+    textSize(16);
+    float x = karel[i].getMapa().getPosX();
+    text("ADN: "+ADN, x, karel[i].getMapa().getPosY()-5);
+    x = x+textWidth("ADN:"+ADN);
+    text(" | Ciclo: "+ciclo, x, karel[i].getMapa().getPosY()-5);
+    x = x+textWidth(" | Ciclo: "+ciclo);
+    text(" | %efi: " + karel[i].getCodigo().getEficiencia(), x, karel[i].getMapa().getPosY()-5);
+    text("Errores", karel[i].getMapa().getPosX(), karel[i].getMapa().getAlto()+24);
+    text(err_pared, karel[i].getMapa().getPosX()+110, karel[i].getMapa().getAlto()+24);
+    text(err_zumbador, karel[i].getMapa().getPosX()+190, karel[i].getMapa().getAlto()+24);
+    text(err_fuera, karel[i].getMapa().getPosX()+280, karel[i].getMapa().getAlto()+24);
+  }
+  // ********** Fin dibujar textos **********
+  // ********** Inicio dibujar iconos **********
+  for (int i=0; i<errores.length; i++) {
+    errores[i][0].draw();
+    errores[i][1].draw();
+    errores[i][2].draw();
+  }
+  // ********** Fin dibujar iconos **********
 }
 
-void mouseClicked() {
-  for (Mapa m : mapa) {
-    m.sensar();
+public void mouseClicked() {
+  // Sensar mapa
+  for (Karel k : karel) {
+    k.getMapa().sensar();
   }
-
+  // Sensar botones
   botones.sensar();
 }

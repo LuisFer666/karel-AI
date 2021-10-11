@@ -6,19 +6,25 @@ public class Codigo {
   private Karel karel;
   private String ADN;
   private boolean running;
+  private int ciclo;
+  private double eficiencia;
 
   public Codigo(Karel karel) {
     this.running = false;
     this.karel = karel;
     cola = new LinkedList();
-    codigo();
+    ciclo = 0;
+    eficiencia = 0;
+    generarADN();
+    cargarCodigo();
   }
 
   public void generarADN() {
     ADN = "";
-    for(int i=0; i<16; i++){
+    for (int i=0; i<16; i++) {
       ADN += int(random(5));
     }
+    println("ADN: " + ADN);
   }
 
   /*
@@ -33,9 +39,7 @@ public class Codigo {
    * Recoger zumbadores
    
    */
-  void codigo() {
-    generarADN();
-    println("ADN: " + ADN);
+  public void cargarCodigo() {
     for (int i=0; i<ADN.length(); i++) {
       switch(ADN.charAt(i)) {
       case '0':
@@ -68,39 +72,51 @@ public class Codigo {
    4 = karel.coge_zumbador();
    */
 
-  void adelante() {
+  public void adelante() {
     cola.add(0);
   }
 
-  void gira_izquierda() {
+  public void gira_izquierda() {
     cola.add(1);
   }
 
-  void frente_libre() {
+  public void frente_libre() {
     cola.add(2);
   }
 
-  void sobre_zumbador() {
+  public void sobre_zumbador() {
     cola.add(3);
   }
 
-  void coge_zumbador() {
+  public void coge_zumbador() {
     cola.add(4);
   }
-
+  
+  // ******* Inicio Getters y Setters *******
   public boolean getRunning() {
     return running;
   }
-
   public void setRunning(boolean running) {
     this.running = running;
   }
-  
-  public String getADN(){
+  public String getADN() {
     return ADN;
   }
+  public void setCiclo(int ciclo) {
+    this.ciclo = ciclo;
+  }
+  public int getCiclo() {
+    return ciclo;
+  }
+  public void setEficiencia(double eficiencia) {
+    this.eficiencia = eficiencia;
+  }
+  public double getEficiencia() {
+    return eficiencia;
+  }
+  // ******* Fin Getters y Setters *******
 
-  void execute() {
+  public void execute() {
     if (!cola.isEmpty()) {
       int a = cola.poll();
       if (a == 0) {
@@ -115,12 +131,13 @@ public class Codigo {
         this.karel.coge_zumbador();
       }
     } else {
-      running = false;
       println("*****************");
       println("Errores");
       println("Err-coger-zumbador: "+this.karel.getErrZumbador());
       println("Err-fuera: "+this.karel.getErrFuera());
-      println("*****************");
+      println("Err-pared: "+this.karel.getErrPared());
+      ciclo++;
+      cargarCodigo();
     }
   }
 }
