@@ -49,6 +49,7 @@ public void draw() {
     k.draw();
     if (k.getZumbadores()>=1) {
       k.getCodigo().setRunning(false);
+      // CALCULAR LA EFICIENCIA DEL CODIGO
     } else {
       if (k.getCodigo().getRunning()) {
         k.getCodigo().execute();

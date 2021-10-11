@@ -38,41 +38,38 @@ public class Karel extends Drawable {
 
   // *** Movimientos ***
   public void arriba() {
-    if (posY >= 40+(35+this.mapa.posY)) {
+    if (posY-40 >= (35+this.mapa.posY)) {
       posY-=40;
     } else {
       err_fuera++;
-      println(id+": Karel intentó salir de la pantalla: " + err_fuera);
+      println(id+": Karel intentó salir de la pantalla (arriba): " + err_fuera);
     }
   }
 
   public void abajo() {
-    //println("posX:"+posX+"lim:" +(35+this.mapa.posX)+" posY:"+posY+"lim:" +(35+this.mapa.posY));
-    if (posY <= 40-(35+this.mapa.alto)) {
+    if (posY+40 <= (35+this.mapa.alto)) {
       posY+=40;
     } else {
       err_fuera++;
-      println(id+": Karel intentó salir de la pantalla: " + err_fuera);
+      println(id+": Karel intentó salir de la pantalla (abajo): " + err_fuera);
     }
   }
 
   public void izquierda() {
-    //println("posX:"+posX+"lim:" +(35+this.mapa.posX)+" posY:"+posY+"lim:" +(35+this.mapa.posY));
-    if (posX >= 40+(35+this.mapa.posX)) {
+    if (posX-40 >= (35+this.mapa.posX)) {
       posX-=40;
     } else {
       err_fuera++;
-      println(id+": Karel intentó salir de la pantalla: " + err_fuera);
+      println(id+": Karel intentó salir de la pantalla (izquierda): " + err_fuera);
     }
   }
 
   public void derecha() {
-    //println("posX:"+posX+"lim:" +(35+this.mapa.posX)+" posY:"+posY+"lim:" +(35+this.mapa.posY));
-    if (posX <= 40-(35+this.mapa.ancho)) {
+    if (posX+40 <= (35+this.mapa.ancho)) {
       posX+=40;
     } else {
       err_fuera++;
-      println(id+": Karel intentó salir de la pantalla: " + err_fuera);
+      println(id+": Karel intentó salir de la pantalla (derecha): " + err_fuera);
     }
   }
 
@@ -153,7 +150,7 @@ public class Karel extends Drawable {
   }
 
   public boolean sobre_zumbador() {
-    if (this.mapa.zumbadores[(posX-this.mapa.posX)/40][(posY-this.mapa.posY)/40]==1) {
+    if (this.mapa.zumbadores[((posX-35)-this.mapa.posX)/40][((posY-35)-this.mapa.posY)/40]==1) {
       println(id+": Sobre zumbador");
       return true;
     }
@@ -162,9 +159,9 @@ public class Karel extends Drawable {
   }
 
   public void coge_zumbador() {
-    if (this.mapa.zumbadores[(posX-this.mapa.posX)/40][(posY-this.mapa.posY)/40]==1) {
+    if (this.mapa.zumbadores[((posX-35)-this.mapa.posX)/40][((posY-35)-this.mapa.posY)/40]==1) {
       println(id+": Coger zumbador");
-      this.mapa.zumbadores[(posX-this.mapa.posX)/40][(posY-this.mapa.posY)/40]=0;
+      this.mapa.zumbadores[((posX-35)-this.mapa.posX)/40][((posY-35)-this.mapa.posY)/40]=0;
       zumbadores++;
     } else {
       err_zumbador++;
