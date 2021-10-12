@@ -1,9 +1,15 @@
-# karel-AI
-Artificial Intelligence created in Processing. This program is inspired on the educational programming language Karel
+# Karel-AI
+![version](https://img.shields.io/badge/version-v0.18-lightgrey)
+![license](https://img.shields.io/badge/license-GNU%20GPL%20v3-blue) <br>
+[![LinkedIn](https://img.shields.io/badge/-LinkedIn-black.svg?style=social&logo=linkedin&colorB=555)](https://www.linkedin.com/in/luis-fernando-rojas-gonz%C3%A1lez-792a431a3/) <br>
+
+Karel-AI is an Artificial Intelligence created in Processing. This program is inspired on the educational programming language Karel
 
 This is an evolutionary algorithm. While is running it will calculate how much efficiency have each DNA strings in all maps. Each Karel instance will search for a beeper and when he pick up in his bag he will stop, wait until the other instances take a beeper or until all runs exactly 200 loops. Then the efficiency will be calculated and the genetic process will start
 
 <img src="https://github.com/LuisFer666/karel-IA/blob/main/Screenshot.png" title="Screenshot.png" />
+
+## Description
 
 The efficiency depends of how many errors and how many steps Karel did for getting a beeper.
 * More errors means less efficiency.
