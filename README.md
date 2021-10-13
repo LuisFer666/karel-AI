@@ -23,7 +23,7 @@ The Artificial Intelligence will follow the next steps
 1. The AI will take these parts to create two new DNA strings (Mixing the DNA string of the parents). This will continue in pairs for others DNA strings
 1. The AI will select only one instruction of the DNA (Randomly). Then this instruction will be mutated to another instruction of the instructions posible
 
-Each complete iteration of AI <From 1. to 5.)> should improve efficiency and achieve better DNA. Let the AI keep training for as long as you like. The more you train, the better results you will have.
+Each complete iteration of AI <From 1. to 5.> should improve efficiency and achieve better DNA. Let the AI keep training for as long as you like. The more you train, the better results you will have.
 
 Below you can see a diagram that explains the algorithm obtained from the book (Russell & Norvin, 2004, Page 132) 
 
