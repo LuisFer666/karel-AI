@@ -11,7 +11,7 @@ public class Mapa extends Drawable  implements Focusable {
     println("Espacios verticales: " + (alto-posY)/40);
     lineasV = new int[((ancho-posX)/40)+1][((alto-posY)/40)+1];
     lineasH = new int[((ancho-posX)/40)+1][((alto-posY)/40)+1];
-    zumbadores = new int[((ancho-posX)/40)-1][((alto-posY)/40)-1];
+    zumbadores = new int[((ancho-posX)/40)][((alto-posY)/40)];
     // ******** Inicio preparar mapa ********
     for (int i=0; i<lineasV[0].length-1; i++) {
       lineasV[0][i] = 1;

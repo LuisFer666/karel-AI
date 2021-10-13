@@ -27,6 +27,12 @@ public class Codigo {
     println("ADN: " + ADN);
   }
 
+  public void calcularEficiencia() {
+    double errores = (karel.getErrPared()+ karel.getErrZumbador() + karel.getErrFuera())/3;
+    double eficiencia = ((ciclo+1)/(errores+1)) * 100;
+    setEficiencia(eficiencia);
+  }
+
   /*
   Se maneja una población con un conjunto de individuos. Por ejemplo 100 agentes en la pantalla, cada uno con su ADN propio
    
@@ -91,7 +97,7 @@ public class Codigo {
   public void coge_zumbador() {
     cola.add(4);
   }
-  
+
   // ******* Inicio Getters y Setters *******
   public boolean getRunning() {
     return running;

@@ -50,8 +50,10 @@ public void draw() {
     if (k.getZumbadores()>=1) {
       k.getCodigo().setRunning(false);
       // CALCULAR LA EFICIENCIA DEL CODIGO
+      k.getCodigo().calcularEficiencia();
     } else {
-      if (k.getCodigo().getRunning()) {
+      // Ejecutar el codigo solo si tiene el estado running = true y si aun no se llega a 200 ciclos
+      if (k.getCodigo().getRunning() && k.getCodigo().getCiclo() < 200) {
         k.getCodigo().execute();
       }
     }
@@ -69,7 +71,7 @@ public void draw() {
     x = x+textWidth("ADN:"+ADN);
     text(" | Ciclo: "+ciclo, x, karel[i].getMapa().getPosY()-5);
     x = x+textWidth(" | Ciclo: "+ciclo);
-    text(" | %efi: " + karel[i].getCodigo().getEficiencia(), x, karel[i].getMapa().getPosY()-5);
+    text(" | %efi: " + String.format(""+karel[i].getCodigo().getEficiencia(), "%.2f"), x, karel[i].getMapa().getPosY()-5);
     text("Errores", karel[i].getMapa().getPosX(), karel[i].getMapa().getAlto()+24);
     text(err_pared, karel[i].getMapa().getPosX()+110, karel[i].getMapa().getAlto()+24);
     text(err_zumbador, karel[i].getMapa().getPosX()+190, karel[i].getMapa().getAlto()+24);
