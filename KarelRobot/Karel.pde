@@ -150,11 +150,11 @@ public class Karel extends Drawable {
   }
 
   public boolean sobre_zumbador() {
-    if (this.mapa.zumbadores[((posX-35)-this.mapa.posX)/40][((posY-35)-this.mapa.posY)/40]==1) {
-      println(id+": Sobre zumbador");
+    if (this.mapa.zumbadores[((posX-35)-mapa.posX)/40][((posY-35)-mapa.posY)/40]==1) {
+      println(id+": Sobre zumbador ("+(((posX-35)-mapa.posX)/40)+","+(((posY-35)-mapa.posY)/40)+")");
       return true;
     }
-    println(id+": No hay zumbador");
+    println(id+": No hay zumbador ("+(((posX-35)-mapa.posX)/40)+","+(((posY-35)-mapa.posY)/40)+")");
     return false;
   }
 
