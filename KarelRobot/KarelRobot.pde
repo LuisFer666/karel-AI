@@ -4,7 +4,7 @@ public Botones botones;
 public Icono errores[][];
 
 public void setup() {
-  size(1600, 850);
+  size(1900, 850);
   // Creación de los Karel
   karel = new Karel[8];
   // Coordenadas de los mapas
