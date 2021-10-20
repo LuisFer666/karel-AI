@@ -3,8 +3,10 @@ public Karel karel[];
 public Botones botones;
 public Icono errores[][];
 
+CajaADN caja[];
+
 public void setup() {
-  size(1900, 850);
+  size(1700, 1030);
   // Creación de los Karel
   karel = new Karel[8];
   // Coordenadas de los mapas
@@ -34,6 +36,9 @@ public void setup() {
     errores[i][1] = new Icono("err_beeper.png", karel[i].getMapa().getPosX()+160, karel[i].getMapa().getAlto()+7, 24, 24);
     errores[i][2] = new Icono("err_outScreen.png", karel[i].getMapa().getPosX()+240, karel[i].getMapa().getAlto()+7, 24, 24);
   }
+  
+  caja = new CajaADN[4];
+  
   // Creación de los botones
   botones = new Botones();
   frameRate(60);
@@ -85,6 +90,21 @@ public void draw() {
     errores[i][2].draw();
   }
   // ********** Fin dibujar iconos **********
+  rectMode(CORNER);
+  fill(255);
+  
+  int cajaPosY = karel[4].getMapa().getAlto()+50;
+  for(int i=0; i<caja.length; i++){
+    caja[i] = new CajaADN(20, cajaPosY, 16, karel[i].getCodigo().getADN());
+    caja[i].draw();
+    cajaPosY+=40;
+  }
+
+  /*
+  rect(20, karel[4].getMapa().getAlto()+50, textWidth(karel[0].getCodigo().getADN())+16, 16+16);
+  fill(0);
+  text(karel[0].getCodigo().getADN(), 20+8, karel[4].getMapa().getAlto()+50+16+6);*/
+  
 }
 
 public void mouseClicked() {

@@ -1,5 +1,5 @@
 # Karel-AI
-![version](https://img.shields.io/badge/version-v0.18-lightgrey)
+![version](https://img.shields.io/badge/version-v0.24-lightgrey)
 ![license](https://img.shields.io/badge/license-GNU%20GPL%20v3-blue) <br>
 [![LinkedIn](https://img.shields.io/badge/-LinkedIn-black.svg?style=social&logo=linkedin&colorB=555)](https://www.linkedin.com/in/luis-fernando-rojas-gonz%C3%A1lez-792a431a3/) <br>
 
