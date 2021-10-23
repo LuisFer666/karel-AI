@@ -3,7 +3,10 @@ public Karel karel[];
 public Botones botones;
 public Icono errores[][];
 
-CajaADN caja[];
+CajaADN cajaPobInicial[];
+CajaADN cajaSeleccion[];
+CajaADN cajaCruce[];
+CajaADN cajaMutacion[];
 
 public void setup() {
   size(1700, 1030);
@@ -37,7 +40,10 @@ public void setup() {
     errores[i][2] = new Icono("err_outScreen.png", karel[i].getMapa().getPosX()+240, karel[i].getMapa().getAlto()+7, 24, 24);
   }
   
-  caja = new CajaADN[4];
+  cajaPobInicial = new CajaADN[4];
+  cajaSeleccion = new CajaADN[4];
+  cajaCruce = new CajaADN[4];
+  cajaMutacion = new CajaADN[4];
   
   // Creación de los botones
   botones = new Botones();
@@ -93,18 +99,64 @@ public void draw() {
   rectMode(CORNER);
   fill(255);
   
+  // ********** Dibujado de cajas **********
   int cajaPosY = karel[4].getMapa().getAlto()+50;
-  for(int i=0; i<caja.length; i++){
-    caja[i] = new CajaADN(20, cajaPosY, 16, karel[i].getCodigo().getADN());
-    caja[i].draw();
+  for(int i=0; i<cajaPobInicial.length; i++){
+    cajaPobInicial[i] = new CajaADN(20, cajaPosY, 16);
+    cajaPobInicial[i].draw();
     cajaPosY+=40;
   }
-
-  /*
-  rect(20, karel[4].getMapa().getAlto()+50, textWidth(karel[0].getCodigo().getADN())+16, 16+16);
-  fill(0);
-  text(karel[0].getCodigo().getADN(), 20+8, karel[4].getMapa().getAlto()+50+16+6);*/
+  text("Poblacion inicial", 20, cajaPosY+10);
   
+  cajaPosY = karel[4].getMapa().getAlto()+50;
+  for(int i=0; i<cajaSeleccion.length; i++){
+    cajaSeleccion[i] = new CajaADN(cajaPobInicial[0].getPosX()+(2*cajaPobInicial[0].getAncho()), cajaPosY, 16);
+    cajaSeleccion[i].draw();
+    cajaPosY+=40;
+  }
+  text("Seleccion", cajaPobInicial[0].getPosX()+(2*cajaPobInicial[0].getAncho()), cajaPosY+10);
+  
+  cajaPosY = karel[4].getMapa().getAlto()+50;
+  for(int i=0; i<cajaCruce.length; i++){
+    cajaCruce[i] = new CajaADN(cajaSeleccion[0].getPosX()+(2*cajaSeleccion[0].getAncho()), cajaPosY, 16);
+    cajaCruce[i].draw();
+    cajaPosY+=40;
+  }
+  text("Cruce", cajaSeleccion[0].getPosX()+(2*cajaSeleccion[0].getAncho()), cajaPosY+10);
+  
+  cajaPosY = karel[4].getMapa().getAlto()+50;
+  for(int i=0; i<cajaMutacion.length; i++){
+    cajaMutacion[i] = new CajaADN(cajaCruce[0].getPosX()+(2*cajaCruce[0].getAncho()), cajaPosY, 16);
+    cajaMutacion[i].draw();
+    cajaPosY+=40;
+  }
+  text("Mutacion", cajaCruce[0].getPosX()+(2*cajaCruce[0].getAncho()), cajaPosY+10);
+  // ********** Fin de dibujado de cajas **********
+  
+  // ********** Inicio de dibujado de lineas **********
+  line(cajaPobInicial[0].getLineDer(), cajaPobInicial[0].getLineY(), cajaSeleccion[1].getLineIzq(), cajaSeleccion[1].getLineY());
+  line(cajaPobInicial[1].getLineDer(), cajaPobInicial[1].getLineY(), cajaSeleccion[0].getLineIzq(), cajaSeleccion[0].getLineY());
+  line(cajaPobInicial[1].getLineDer(), cajaPobInicial[1].getLineY(), cajaSeleccion[2].getLineIzq(), cajaSeleccion[2].getLineY());
+  line(cajaPobInicial[2].getLineDer(), cajaPobInicial[2].getLineY(), cajaSeleccion[3].getLineIzq(), cajaSeleccion[3].getLineY());
+  
+  line(cajaSeleccion[0].getLineDer(), cajaSeleccion[0].getLineY(), cajaCruce[0].getPosX()-((2*cajaSeleccion[0].getAncho())/3), cajaCruce[0].getPosY()+35);
+  line(cajaSeleccion[1].getLineDer(), cajaSeleccion[1].getLineY(), cajaCruce[0].getPosX()-((2*cajaSeleccion[0].getAncho())/3), cajaCruce[0].getPosY()+35);
+  line(cajaCruce[0].getPosX()-((2*cajaSeleccion[0].getAncho())/3), cajaCruce[0].getPosY()+35, cajaCruce[0].getPosX()-((cajaSeleccion[0].getAncho())/3), cajaSeleccion[0].getPosY()+35);
+  line(cajaCruce[0].getPosX()-((cajaSeleccion[0].getAncho())/3), cajaSeleccion[0].getPosY()+35, cajaCruce[1].getLineIzq(), cajaCruce[1].getLineY());
+  line(cajaCruce[0].getPosX()-((cajaSeleccion[0].getAncho())/3), cajaSeleccion[0].getPosY()+35, cajaCruce[0].getLineIzq(), cajaCruce[0].getLineY());
+  
+  line(cajaSeleccion[2].getLineDer(), cajaSeleccion[2].getLineY(), cajaCruce[2].getPosX()-((2*cajaSeleccion[2].getAncho())/3), cajaCruce[2].getPosY()+35);
+  line(cajaSeleccion[3].getLineDer(), cajaSeleccion[3].getLineY(), cajaCruce[2].getPosX()-((2*cajaSeleccion[2].getAncho())/3), cajaCruce[2].getPosY()+35);
+  line(cajaCruce[2].getPosX()-((2*cajaSeleccion[2].getAncho())/3), cajaCruce[2].getPosY()+35, cajaCruce[2].getPosX()-((cajaSeleccion[2].getAncho())/3), cajaSeleccion[2].getPosY()+35);
+  line(cajaCruce[2].getPosX()-((cajaSeleccion[2].getAncho())/3), cajaSeleccion[2].getPosY()+35, cajaCruce[3].getLineIzq(), cajaCruce[3].getLineY());
+  line(cajaCruce[2].getPosX()-((cajaSeleccion[2].getAncho())/3), cajaSeleccion[2].getPosY()+35, cajaCruce[2].getLineIzq(), cajaCruce[2].getLineY());
+  
+  line(cajaCruce[0].getLineDer(), cajaCruce[0].getLineY(), cajaMutacion[0].getLineIzq(), cajaMutacion[0].getLineY());
+  line(cajaCruce[1].getLineDer(), cajaCruce[1].getLineY(), cajaMutacion[1].getLineIzq(), cajaMutacion[1].getLineY());
+  line(cajaCruce[2].getLineDer(), cajaCruce[2].getLineY(), cajaMutacion[2].getLineIzq(), cajaMutacion[2].getLineY());
+  line(cajaCruce[3].getLineDer(), cajaCruce[3].getLineY(), cajaMutacion[3].getLineIzq(), cajaMutacion[3].getLineY());
+  
+  // ********** Fin de dibujado de lineas **********
 }
 
 public void mouseClicked() {
