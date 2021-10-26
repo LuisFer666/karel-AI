@@ -44,7 +44,7 @@ public class Botones extends Drawable implements Focusable {
           k.getCodigo().setRunning(true);
         }
 
-        frameRate(30);
+        frameRate(128);
         println("Now playing");
       }
     } else if (mouseX >= (width/2)-15 && mouseX <= (width/2)+15) {

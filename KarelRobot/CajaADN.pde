@@ -4,7 +4,7 @@ public class CajaADN extends Drawable{
   private int lineY;
   
   public CajaADN(int posX, int posY, int textSize){
-    super(posX, posY, int(textWidth("0000000000000000")+textSize), textSize*2);
+    super(posX, posY, int(textWidth("0000000000000000")+16+16), textSize*2);
     this.ADN = "";
     this.lineIzq = posX;
     this.lineY = posY+textSize;
@@ -12,7 +12,7 @@ public class CajaADN extends Drawable{
   }
   
   public CajaADN(int posX, int posY, int textSize, String ADN){
-    super(posX, posY, int(textWidth(ADN)+textSize), textSize*2);
+    super(posX, posY, int(textWidth(ADN)+16+16), textSize*2);
     this.ADN = ADN;
     this.lineIzq = posX;
     this.lineY = posY+textSize;

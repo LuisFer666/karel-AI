@@ -7,7 +7,7 @@ public class Codigo {
   private String ADN;
   private boolean running;
   private int ciclo;
-  private double eficiencia;
+  private int eficiencia;
 
   public Codigo(Karel karel) {
     this.running = false;
@@ -29,7 +29,7 @@ public class Codigo {
 
   public void calcularEficiencia() {
     double errores = (karel.getErrPared()+ karel.getErrZumbador() + karel.getErrFuera())/3;
-    double eficiencia = ((ciclo+1)/(errores+1)) * 100;
+    int eficiencia = round((float)(((ciclo+1)/(errores+1)) * 100));
     setEficiencia(eficiencia);
   }
 
@@ -114,10 +114,10 @@ public class Codigo {
   public int getCiclo() {
     return ciclo;
   }
-  public void setEficiencia(double eficiencia) {
+  public void setEficiencia(int eficiencia) {
     this.eficiencia = eficiencia;
   }
-  public double getEficiencia() {
+  public int getEficiencia() {
     return eficiencia;
   }
   // ******* Fin Getters y Setters *******
