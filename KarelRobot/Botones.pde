@@ -87,7 +87,7 @@ public class Botones extends Drawable implements Focusable {
       }
     }
   }
-  
+
   @Override
     public void draw() {
     // Dibujar barra superior

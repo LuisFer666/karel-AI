@@ -108,6 +108,9 @@ public class Codigo {
   public String getADN() {
     return ADN;
   }
+  public void setADN(String ADN) {
+    this.ADN = ADN;
+  }
   public void setCiclo(int ciclo) {
     this.ciclo = ciclo;
   }
@@ -130,9 +133,23 @@ public class Codigo {
       } else if (a == 1) {
         this.karel.gira_izquierda();
       } else if (a == 2) {
-        this.karel.frente_libre();
+        if (this.karel.frente_libre()) {
+          execute();
+        } else {
+          if (!cola.isEmpty()) {
+            a = cola.poll();
+            execute();
+          }
+        }
       } else if (a == 3) {
-        this.karel.sobre_zumbador();
+        if (this.karel.sobre_zumbador()) {
+          execute();
+        } else {
+          if (!cola.isEmpty()) {
+            a = cola.poll();
+            execute();
+          }
+        }
       } else if (a == 4) {
         this.karel.coge_zumbador();
       }

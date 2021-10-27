@@ -4,7 +4,7 @@ public abstract class Drawable {
   protected int ancho;
   protected int alto;
 
-  public Drawable(){
+  public Drawable() {
     this.posX = 0;
     this.posY = 0;
     this.ancho = 0;
@@ -17,7 +17,7 @@ public abstract class Drawable {
     this.ancho = ancho;
     this.alto = alto;
   }
-  
+
   // ******* Inicio Getters y Setters *******
   public int getPosX() {
     return posX;
@@ -44,6 +44,6 @@ public abstract class Drawable {
     this.alto = alto;
   }
   // ******* Fin Getters y Setters *******
-  
+
   public abstract void draw();
 }
