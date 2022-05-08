@@ -30,10 +30,6 @@ Below you can see a diagram that explains the algorithm obtained from the book (
 <img src="https://github.com/LuisFer666/karel-IA/blob/main/Genetic-Algorithm.png" title="Genetic-Algorithm.png"/> 
 Reference: Russell S., Norvig P. 2004. Inteligencia Artificial: Un Enfoque Moderno 2° Ed. Pearson Prentice Hall. Madrid
 
-This is the UML class diagram
-
-<img src="https://github.com/LuisFer666/karel-IA/blob/main/Clases.png" title="Clases.png" />
-
 ## Installation
 
 1. Download and Install <a href="https://processing.org/download">Processing 3.x</a> stable release
