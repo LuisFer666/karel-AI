@@ -3,6 +3,7 @@ import java.util.TreeMap;
 import java.util.Iterator;
 
 public Karel karel[];
+
 public Botones botones;
 public Icono errores[][];
 
@@ -15,12 +16,7 @@ int robots; // Cantidad de robots que terminaron su programa
 Map<Integer, String> bestDNA;
 int frame;
 
-public void setup() {
-  size(1700, 1030);
-  robots = 0;
-  frame = -1;
-
-  // Creación de los Karel
+private void crearInstancias(){
   karel = new Karel[8];
   // Coordenadas de los mapas
   int x=0;
@@ -42,21 +38,9 @@ public void setup() {
       y +=400;
     }
   }
-  // Iconos de error
-  errores = new Icono[8][3];
-  for (int i=0; i<errores.length; i++) {
-    errores[i][0] = new Icono("err_colision.png", karel[i].getMapa().getPosX()+80, karel[i].getMapa().getAlto()+7, 24, 24);
-    errores[i][1] = new Icono("err_beeper.png", karel[i].getMapa().getPosX()+160, karel[i].getMapa().getAlto()+7, 24, 24);
-    errores[i][2] = new Icono("err_outScreen.png", karel[i].getMapa().getPosX()+240, karel[i].getMapa().getAlto()+7, 24, 24);
-  }
+}
 
-  cajaPobInicial = new CajaADN[4];
-  cajaSeleccion = new CajaADN[4];
-  cajaCruce = new CajaADN[4];
-  cajaMutacion = new CajaADN[4];
-
-  bestDNA = new TreeMap<Integer, String>();
-
+private void dibujarCajas(){
   textSize(16);
   // ********** Dibujado de cajas **********
   int cajaPosY = karel[4].getMapa().getAlto()+50;
@@ -91,9 +75,33 @@ public void setup() {
   }
   text("Mutacion", cajaCruce[0].getPosX()+(2*cajaCruce[0].getAncho()), cajaPosY+10);
   // ********** Fin de dibujado de cajas **********
+}
 
+public void setup() {
+  size(1700, 1030);
+  robots = 0;
+  frame = -1;
 
+  // Creación de Karel, mapas, codigos aleatorios
+  crearInstancias();
+  
+  // Iconos de error
+  errores = new Icono[8][3];
+  for (int i=0; i<errores.length; i++) {
+    errores[i][0] = new Icono("err_colision.png", karel[i].getMapa().getPosX()+80, karel[i].getMapa().getAlto()+7, 24, 24);
+    errores[i][1] = new Icono("err_beeper.png", karel[i].getMapa().getPosX()+160, karel[i].getMapa().getAlto()+7, 24, 24);
+    errores[i][2] = new Icono("err_outScreen.png", karel[i].getMapa().getPosX()+240, karel[i].getMapa().getAlto()+7, 24, 24);
+  }
 
+  cajaPobInicial = new CajaADN[4];
+  cajaSeleccion = new CajaADN[4];
+  cajaCruce = new CajaADN[4];
+  cajaMutacion = new CajaADN[4];
+
+  bestDNA = new TreeMap<Integer, String>();
+  
+  dibujarCajas();
+  
   // Creación de los botones
   botones = new Botones();
   frameRate(60);
@@ -248,8 +256,8 @@ public void draw() {
       frame = -1;
     }
     robots=0;
-    // ************* Inicio Reinicio del algoritmo evolutivo *************
   }
+  // ************* Fin Reinicio del algoritmo evolutivo *************
   // ********** Inicio de dibujado de cajas **********
   int cajaPosY = karel[4].getMapa().getAlto()+50;
   for (int i=0; i<cajaPobInicial.length; i++) {
